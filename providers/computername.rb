@@ -12,7 +12,7 @@ def whyrun_supported?
 end
 
 def load_current_resource
-  @current_resource = Chef::Resource::Fqdn.new(@new_resource.name)
+  @current_resource = Chef::Resource::Fqdn_computername.new(@new_resource.name)
   @current_resource.name(@new_resource.name)
   @current_resource.host(@new_resource.host)
 
