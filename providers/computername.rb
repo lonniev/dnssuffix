@@ -58,9 +58,9 @@ end
 
 def activeFqdn()
   
-  hostname = registry_get_values( 
+  hostname = Chef::DSL::RegistryHelper::registry_get_values( 
     "HKLM\\SYSTEM\\CurrentControlSet\\Control\\ComputerName\\ActiveComputerName" ).select { |v| v[:name] == "ComputerName" }[0][:data]
-  domain   = registry_get_values(
+  domain   = Chef::DSL::RegistryHelper::registry_get_values(
     "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters" ).select { |v| v[:name] == "Domain" }[0][:data]
   
   "#{hostname}.#{domain}"  
