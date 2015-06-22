@@ -16,7 +16,6 @@ action :add do
   converge_by("add new Fully Qualified Domain Name #{new_resource.host} for computer #{new_resource.name}") do
 
     powershell_script "netdom computername" do
-      cwd "%TEMP%"
       code <<-EOH
         netdom computername #{new_resource.name} /add:#{new_resource.host}
       EOH
@@ -38,7 +37,6 @@ action :add_primary do
     end
     
     powershell_script "netdom computername" do
-      cwd "%TEMP%"
       code <<-EOH
         netdom computername #{new_resource.name} /add:#{new_resource.host}
         netdom computername #{new_resource.name} /make_primary:#{new_resource.host}
