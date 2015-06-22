@@ -56,8 +56,8 @@ end
 
 def activeFqdn()
   
-  hostname = registry_get_values( "HKLM\SYSTEM\CurrentControlSet\Control\ComputerName\ActiveComputerName" )['ComputerName']
-  domain   = registry_get_values( "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" )['Domain']
+  hostname = registry_get_values( "HKLM\\SYSTEM\\CurrentControlSet\\Control\\ComputerName\\ActiveComputerName" )['ComputerName']
+  domain   = registry_get_values( "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters" )['Domain']
   
   "#{hostname}.#{domain}"  
 end
