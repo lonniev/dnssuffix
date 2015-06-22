@@ -7,8 +7,6 @@
 # All rights reserved - Do Not Redistribute
 #
 
-require 'chef/dsl/registry_helper'
-
 def whyrun_supported?
   true
 end
@@ -56,11 +54,16 @@ action :add_primary do
   end
 end
 
+def registry_get_values(key_path, architecture = :machine)
+  registry = Chef::Win32::Registry.new(run_context, architecture)
+  registry.get_values(key_path)
+end
+
 def activeFqdn()
   
-  hostname = Chef::DSL::RegistryHelper::registry_get_values( 
+  hostname = registry_get_values( 
     "HKLM\\SYSTEM\\CurrentControlSet\\Control\\ComputerName\\ActiveComputerName" ).select { |v| v[:name] == "ComputerName" }[0][:data]
-  domain   = Chef::DSL::RegistryHelper::registry_get_values(
+  domain   = registry_get_values(
     "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters" ).select { |v| v[:name] == "Domain" }[0][:data]
   
   "#{hostname}.#{domain}"  
