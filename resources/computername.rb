@@ -7,7 +7,7 @@
 # All rights reserved - Do Not Redistribute
 #
 
-actions [:add, :add_primary]
+actions :add, :add_primary
 default_action :add
 
 attribute :name, kind_of: String, name_attribute: true
