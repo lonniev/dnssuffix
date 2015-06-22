@@ -39,7 +39,7 @@ action :add_primary do
     powershell_script "netdom computername" do
       code <<-EOH
         netdom computername #{new_resource.name} /add:#{new_resource.host}
-        netdom computername #{new_resource.name} /make_primary:#{new_resource.host}
+        netdom computername #{new_resource.name} /makeprimary:#{new_resource.host}
       EOH
       
       notifies new_resource.reboot_immediately ? :reboot_now : :request_reboot, 'reboot[New ComputerName]', :immediately
