@@ -11,6 +11,16 @@ def whyrun_supported?
   true
 end
 
+def load_current_resource
+  @current_resource = Chef::Resource::Fqdn.new(@new_resource.name)
+  @current_resource.name(@new_resource.name)
+  @current_resource.host(@new_resource.host)
+
+  if fqdn_added?( @current_resource.name )
+    @current_resource.exists = true
+  end
+end
+ 
 action :add do
 
   unless fqdn_added?( new_resource.host )
@@ -26,7 +36,6 @@ action :add do
       Chef::Log.info("#{new_resource} added #{new_resource.host} for #{new_resource.name}")
     end
 
-    new_resource.updated_by_last_action(true)
   end
 end
 
@@ -53,7 +62,6 @@ action :add_primary do
       Chef::Log.info("#{new_resource} added primary #{new_resource.host} for #{new_resource.name}")
     end
 
-    new_resource.updated_by_last_action(true)
   end
 end
 
@@ -85,7 +93,6 @@ action :make_primary do
       Chef::Log.info("#{new_resource} made primary #{new_resource.host} for #{new_resource.name}")
     end
 
-    new_resource.updated_by_last_action(true)
   end
 end
 
@@ -102,6 +109,8 @@ def fqdn_added?( host )
     domain   = registry_get_values(
     "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters" ).select { |v| v[:name] == "Domain" }[0][:data]
 
+    Chef::Log.warn( "Given #{host}, looked up #{hostname}.#{domain}" )
+    
     host.casecmp( "#{hostname}.#{domain}" ).zero?
   rescue
     false
