@@ -13,16 +13,41 @@ end
 
 action :add do
 
-  converge_by("add new Fully Qualified Domain Name #{new_resource.host}") do
+  converge_by("add new Fully Qualified Domain Name #{new_resource.host} for computer #{new_resource.name}") do
 
-    powershell_script "cwd-to-win-env-var" do
+    powershell_script "netdom computername" do
       cwd "%TEMP%"
       code <<-EOH
-        netdom computername #{new_resource.name} add:
+        netdom computername #{new_resource.name} /add:#{new_resource.host}
       EOH
     end
 
-    Chef::Log.info("#{new_resource} retrieved #{mediaFilePath} for #{new_resource.purpose}")
+    Chef::Log.info("#{new_resource} added #{new_resource.host} for #{new_resource.name}")
+  end
+
+  new_resource.updated_by_last_action(true)
+end
+
+action :add_primary do
+
+  converge_by("add new primary Fully Qualified Domain Name #{new_resource.host} for computer #{new_resource.name}") do
+
+    reboot "New ComputerName" do
+      action :nothing
+      reason "The new primary computername #{new_resource.host} needs a reboot to become effective."
+    end
+    
+    powershell_script "netdom computername" do
+      cwd "%TEMP%"
+      code <<-EOH
+        netdom computername #{new_resource.name} /add:#{new_resource.host}
+        netdom computername #{new_resource.name} /make_primary:#{new_resource.host}
+      EOH
+      
+      notifies new_resource.reboot_immediately ? :reboot_now : :request_reboot, 'reboot[New ComputerName]', :immediately
+    end
+
+    Chef::Log.info("#{new_resource} added primary #{new_resource.host} for #{new_resource.name}")
   end
 
   new_resource.updated_by_last_action(true)
