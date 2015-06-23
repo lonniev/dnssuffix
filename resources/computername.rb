@@ -10,8 +10,8 @@
 actions :add, :add_primary, :make_primary
 default_action :add
 
-attribute :computername, kind_of: String, :required => true
 attribute :name, kind_of: String, name_attribute: true
+attribute :computername, kind_of: String, :required => true
 attribute :reboot_immediately, kind_of: [TrueClass,FalseClass], :default => false
 
 attr_accessor :exists
