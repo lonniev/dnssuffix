@@ -10,6 +10,6 @@
 # make sure that the server has the FQDN we expect and reboot if needed
 fqdn_computername node['fqdn']['host'] do
   action :make_primary
-  computername node['fqdn']['computername']
+  computername node['fqdn']['computer']
   reboot_immediately true
 end
