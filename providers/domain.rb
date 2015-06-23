@@ -12,7 +12,7 @@ def whyrun_supported?
 end
 
 def load_current_resource
-  @current_resource = Chef::Resource::FqdnComputername.new( @new_resource.name )
+  @current_resource = Chef::Resource::NetdomDomain.new( @new_resource.name )
   
   @current_resource.computer(@new_resource.computer)
   @current_resource.name(@new_resource.name)

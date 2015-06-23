@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: fqdn
+# Cookbook Name:: netdom
 # Recipe:: default
 #
 # Copyright 2014, Lonnie VanZandt lonniev@gmail.com
@@ -16,7 +16,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-default['fqdn'] =
+default['netdom'] =
 {
   'alias'     => "netbios",
   'host'      => "netbios.acme.com"

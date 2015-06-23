@@ -1,52 +1,49 @@
-fqdn Cookbook
+netdom Cookbook
 =============
-TODO: Enter the cookbook description here.
-
-e.g.
-This cookbook makes your favorite breakfast sandwich.
+Installs/Configures Fully Qualified Domain Names via netdom.
 
 Requirements
 ------------
-TODO: List your cookbook requirements. Be sure to include any requirements this cookbook has on platforms, libraries, other cookbooks, packages, operating systems, etc.
+TODO: List your cookbook requirements. Be sure to include any requirements this cookbook has on platforms, libraries, other cookbooks, packages, operating systemnetdomtc.
 
 e.g.
 #### packages
-- `toaster` - fqdn needs toaster to brown your bagel.
+- `toaster` - netdom needs toaster to brown your bagel.
 
 Attributes
 ----------
-TODO: List your cookbook attributes here.
+TODO: List netdom cookbook attributes here.
 
 e.g.
-#### fqdn::default
+#### netdom::default
 <table>
   <tr>
     <th>Key</th>
     <th>Type</th>
     <th>Description</th>
-    <th>Default</th>
+    <th>netdomult</th>
   </tr>
   <tr>
-    <td><tt>['fqdn']['bacon']</tt></td>
+    <td><tt>['netdom']['bacon']</tt></td>
     <td>Boolean</td>
     <td>whether to include bacon</td>
-    <td><tt>true</tt></td>
+    <td><tt>true</ttnetdomd>
   </tr>
 </table>
 
 Usage
 -----
-#### fqdn::default
-TODO: Write usage instructions for each cookbook.
+#### netdom::default
+TODO: Write usage for each cookbook.
 
 e.g.
-Just include `fqdn` in your node's `run_list`:
+Just include `netdom` in your node's `run_list`:
 
 ```json
 {
-  "name":"my_node",
+  "my_node",
   "run_list": [
-    "recipe[fqdn]"
+    "recipe[netdom]"
   ]
 }
 ```

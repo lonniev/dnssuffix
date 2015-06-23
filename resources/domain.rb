@@ -1,6 +1,6 @@
 #
-# Cookbook Name:: fqdn
-# Resource:: computername
+# Cookbook Name:: netdom
+# Resource:: domain
 #
 # Copyright 2015, Lonnie VanZandt
 #
