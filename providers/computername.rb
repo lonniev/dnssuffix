@@ -14,7 +14,7 @@ end
 def load_current_resource
   @current_resource = Chef::Resource::FqdnComputername.new( @new_resource.host )
   
-  @current_resource.name(@new_resource.name)
+  @current_resource.computername(@new_resource.computername)
   @current_resource.host(@new_resource.host)
 
   @current_resource.exists = fqdn_added?( @current_resource.host )
@@ -26,15 +26,15 @@ action :add do
 
   unless fqdn_added?( new_resource.host )
 
-    converge_by("add new Fully Qualified Domain Name #{new_resource.host} for computer #{new_resource.name}") do
+    converge_by("add new Fully Qualified Domain Name #{new_resource.host} for computer #{new_resource.computername}") do
 
       powershell_script "netdom computername" do
         code <<-EOH
-          netdom computername #{new_resource.name} /add:#{new_resource.host}
+          netdom computername #{new_resource.computername} /add:#{new_resource.host}
         EOH
       end
 
-      Chef::Log.info("#{new_resource} added #{new_resource.host} for #{new_resource.name}")
+      Chef::Log.info("#{new_resource} added #{new_resource.host} for #{new_resource.computername}")
     end
 
   end
@@ -44,7 +44,7 @@ action :add_primary do
 
   unless fqdn_added?( new_resource.host )
 
-    converge_by("add new primary Fully Qualified Domain Name #{new_resource.host} for computer #{new_resource.name}") do
+    converge_by("add new primary Fully Qualified Domain Name #{new_resource.host} for computer #{new_resource.computername}") do
 
       reboot "New ComputerName" do
         action :nothing
@@ -53,14 +53,14 @@ action :add_primary do
 
       powershell_script "netdom computername" do
         code <<-EOH
-          netdom computername #{new_resource.name} /add:#{new_resource.host}
-          netdom computername #{new_resource.name} /makeprimary:#{new_resource.host}
+          netdom computername #{new_resource.computername} /add:#{new_resource.host}
+          netdom computername #{new_resource.computername} /makeprimary:#{new_resource.host}
         EOH
 
         notifies new_resource.reboot_immediately ? :reboot_now : :request_reboot, 'reboot[New ComputerName]', :immediately
       end
 
-      Chef::Log.info("#{new_resource} added primary #{new_resource.host} for #{new_resource.name}")
+      Chef::Log.info("#{new_resource} added primary #{new_resource.host} for #{new_resource.computername}")
     end
 
   end
@@ -70,7 +70,7 @@ action :make_primary do
 
   unless fqdn_active?( new_resource.host )
 
-    converge_by("make primary Fully Qualified Domain Name #{new_resource.host} for computer #{new_resource.name}") do
+    converge_by("make primary Fully Qualified Domain Name #{new_resource.host} for computer #{new_resource.computername}") do
 
       reboot "New ComputerName" do
         action :nothing
@@ -79,19 +79,19 @@ action :make_primary do
 
       powershell_script "netdom computername" do
         code <<-EOH
-          netdom computername #{new_resource.name} /add:#{new_resource.host}
+          netdom computername #{new_resource.computername} /add:#{new_resource.host}
         EOH       
       end unless fqdn_added?( new_resource.host )
       
       powershell_script "netdom computername" do
         code <<-EOH
-          netdom computername #{new_resource.name} /makeprimary:#{new_resource.host}
+          netdom computername #{new_resource.computername} /makeprimary:#{new_resource.host}
         EOH
 
         notifies new_resource.reboot_immediately ? :reboot_now : :request_reboot, 'reboot[New ComputerName]', :immediately
       end
 
-      Chef::Log.info("#{new_resource} made primary #{new_resource.host} for #{new_resource.name}")
+      Chef::Log.info("#{new_resource} made primary #{new_resource.host} for #{new_resource.computername}")
     end
 
   end
