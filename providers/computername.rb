@@ -12,13 +12,14 @@ def whyrun_supported?
 end
 
 def load_current_resource
-  @current_resource = Chef::Resource::FqdnComputername.new(@new_resource.name)
+  @current_resource = Chef::Resource::FqdnComputername.new( @new_resource.host )
+  
   @current_resource.name(@new_resource.name)
   @current_resource.host(@new_resource.host)
 
-  if fqdn_added?( @current_resource.name )
-    @current_resource.exists = true
-  end
+  @current_resource.exists = fqdn_added?( @current_resource.host )
+  
+  @current_resource
 end
  
 action :add do
