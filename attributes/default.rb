@@ -18,6 +18,6 @@
 
 default['fqdn'] =
 {
-  'computer'     => "netbios",
-  'host'         => "netbios.acme.com",
+  'alias'     => "netbios",
+  'host'      => "netbios.acme.com"
 }
