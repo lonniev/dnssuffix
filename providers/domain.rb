@@ -27,6 +27,7 @@ action :add do
     
     dns = @new_resource.name
     host = @new_resource.host
+    reboot_action = @new_resource.reboot_immediately ? :reboot_now : :request_reboot
 
     converge_by("add new Domain Name Suffix #{dns} for computer #{host}") do
 
@@ -35,16 +36,16 @@ action :add do
         values [{
           :name => "Domain",
           :type => :string,
-          :data => "#{dns_suffix}"
+          :data => "#{dns}"
         }]
         
         action :create
 
-        notifies new_resource.reboot_immediately ? :reboot_now : :request_reboot, 'reboot[New DNS Suffix]', :immediately
+        notifies reboot_action, 'reboot[New DNS Suffix]', :immediately
 
       end
 
-      reboot "New DNS Suffix" do
+      reboot "New DNS Suffix #{dns}" do
         action :nothing
         reason "The new DNS #{dns} needs a reboot to become effective."
       end
