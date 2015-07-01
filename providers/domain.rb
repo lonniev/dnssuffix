@@ -41,7 +41,7 @@ action :add do
         
         action :create
 
-        notifies reboot_action, 'reboot[New DNS Suffix]', :immediately
+        notifies reboot_action, "reboot[New DNS Suffix #{dns}]", :immediately
 
       end
 
