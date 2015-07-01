@@ -1,49 +1,36 @@
-netdom Cookbook
+dnssuffix Cookbook
 =============
-Installs/Configures Fully Qualified Domain Names via netdom.
+Installs/Configures Fully Qualified Domain Names via dnssuffix.
 
 Requirements
 ------------
-TODO: List your cookbook requirements. Be sure to include any requirements this cookbook has on platforms, libraries, other cookbooks, packages, operating systemnetdomtc.
+TODO: List your cookbook requirements. Be sure to include any requirements this cookbook has on platforms, libraries, other cookbooks, packages, operating systemdnssuffixtc.
 
 e.g.
 #### packages
-- `toaster` - netdom needs toaster to brown your bagel.
+- `toaster` - dnssuffix needs toaster to brown your bagel.
 
 Attributes
 ----------
-TODO: List netdom cookbook attributes here.
+TODO: List dnssuffix cookbook attributes here.
 
 e.g.
-#### netdom::default
-<table>
-  <tr>
-    <th>Key</th>
-    <th>Type</th>
-    <th>Description</th>
-    <th>netdomult</th>
-  </tr>
-  <tr>
-    <td><tt>['netdom']['bacon']</tt></td>
-    <td>Boolean</td>
-    <td>whether to include bacon</td>
-    <td><tt>true</ttnetdomd>
-  </tr>
-</table>
+#### dnssuffix::default
+
 
 Usage
 -----
-#### netdom::default
+#### dnssuffix::default
 TODO: Write usage for each cookbook.
 
 e.g.
-Just include `netdom` in your node's `run_list`:
+Just include `dnssuffix` in your node's `run_list`:
 
 ```json
 {
   "my_node",
   "run_list": [
-    "recipe[netdom]"
+    "recipe[dnssuffix]"
   ]
 }
 ```

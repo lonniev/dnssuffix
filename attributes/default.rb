@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: netdom
+# Cookbook Name:: dnssuffix
 # Recipe:: default
 #
 # Copyright 2014, Lonnie VanZandt lonniev@gmail.com
@@ -16,8 +16,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-default['netdom'] =
+default['dnssuffix'] =
 {
-  'alias'     => "netbios",
-  'host'      => "netbios.acme.com"
+  'host'     => "machine",
+  'domain'   => "acme.com"
 }
